@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>製品一覧 | 住友電工ハードメタル 3Dビューワー</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    :root {
+      --sumitomo-blue: #003E7E;
+      --sumitomo-dark: #002855;
+      --sumitomo-light: #0066CC;
+      --sumitomo-gray: #666;
+      --accent-orange: #F39800;
+      --bg-light: #f5f5f5;
+      --bg-white: #ffffff;
+      --border: #e0e0e0;
+    }
+
+    /* Header */
+    .header {
+      background: var(--sumitomo-dark);
+      padding: 12px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-text {
+      color: #fff;
+    }
+
+    .logo-text .main {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo-text .sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .logo-tagline {
+      color: var(--accent-orange);
+      font-size: 11px;
+      margin-left: 16px;
+      padding-left: 16px;
+      border-left: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .header-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 16px;
+      border-radius: 4px;
+      width: 300px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .header-search input {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      width: 100%;
+      outline: none;
+    }
+
+    .header-search input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    .header-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .header-nav a:hover {
+      color: var(--accent-orange);
+    }
+
+    /* Main Layout */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--bg-white);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      position: sticky;
+      top: 56px;
+      height: calc(100vh - 56px);
+    }
+
+    .filter-section {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-header {
+      padding: 14px 16px;
+      font-weight: bold;
+      font-size: 13px;
+      color: var(--sumitomo-dark);
+      background: #fafafa;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter-content {
+      padding: 12px 16px;
+    }
+
+    /* Material Grid */
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .material-btn {
+      padding: 10px 8px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .material-btn:hover {
+      border-color: var(--sumitomo-blue);
+    }
+
+    .material-btn.active {
+      border-color: var(--sumitomo-blue);
+      background: #f0f5ff;
+    }
+
+    .material-btn .code {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--sumitomo-dark);
+    }
+
+    .material-btn .name {
+      font-size: 10px;
+      color: var(--sumitomo-gray);
+      margin-top: 2px;
+    }
+
+    .material-btn.active .code {
+      color: var(--sumitomo-blue);
+    }
+
+    /* Shape List */
+    .shape-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .shape-item {
+      padding: 10px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .shape-item:hover {
+      background: #f5f5f5;
+    }
+
+    .shape-item.active {
+      background: #f0f5ff;
+      color: var(--sumitomo-blue);
+    }
+
+    .shape-icon {
+      width: 32px;
+      height: 32px;
+      background: #e8e8e8;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .shape-item.active .shape-icon {
+      background: var(--sumitomo-blue);
+      color: #fff;
+    }
+
+    .shape-info { flex: 1; }
+    .shape-name { font-weight: 600; }
+    .shape-desc { font-size: 11px; color: #999; }
+    .shape-count {
+      font-size: 11px;
+      color: #999;
+      background: #f0f0f0;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* Pills */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      background: #fff;
+      transition: all 0.2s;
+    }
+
+    .pill:hover {
+      border-color: var(--sumitomo-blue);
+    }
+
+    .pill.active {
+      background: var(--sumitomo-blue);
+      color: #fff;
+      border-color: var(--sumitomo-blue);
+    }
+
+    /* Quick Search */
+    .quick-search {
+      padding: 16px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .quick-search-label {
+      font-size: 11px;
+      color: var(--sumitomo-gray);
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .quick-search-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .quick-search-input:focus {
+      outline: none;
+      border-color: var(--sumitomo-blue);
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 24px 32px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--sumitomo-gray);
+      margin-bottom: 16px;
+    }
+
+    .breadcrumb a {
+      color: var(--sumitomo-blue);
+      text-decoration: none;
+    }
+
+    /* Results Header */
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .results-count {
+      font-size: 14px;
+    }
+
+    .results-count strong {
+      color: var(--sumitomo-blue);
+      font-size: 20px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .product-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, #f8f8f8, #eeeeee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .product-thumb-3d {
+      font-size: 32px;
+      color: #ccc;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--accent-orange);
+      color: #fff;
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .product-info {
+      padding: 16px;
+    }
+
+    .product-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--sumitomo-dark);
+      margin-bottom: 6px;
+    }
+
+    .product-spec {
+      font-size: 12px;
+      color: var(--sumitomo-gray);
+      margin-bottom: 10px;
+    }
+
+    .product-meta {
+      display: flex;
+      gap: 8px;
+    }
+
+    .product-grade {
+      font-size: 11px;
+      padding: 4px 10px;
+      background: #f0f0f0;
+      border-radius: 3px;
+      color: #666;
+    }
+
+    .product-3d-icon {
+      font-size: 11px;
+      padding: 4px 10px;
+      background: var(--sumitomo-blue);
+      border-radius: 3px;
+      color: #fff;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--sumitomo-dark);
+      color: #fff;
+      padding: 20px 32px;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+      .header-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-text">
+        <div class="main">SUMITOMO ELECTRIC</div>
+        <div class="sub">Hardmetal Corp.</div>
+      </div>
+      <div class="logo-tagline">CARBIDE・CBN・DIAMOND</div>
+    </div>
+    <div class="header-search">
+      <span>🔍</span>
+      <input type="text" placeholder="型番で検索（例：CNMG120408）" id="searchInput">
+    </div>
+    <nav class="header-nav">
+      <a href="#">製品情報</a>
+      <a href="#">カタログ・CAD</a>
+      <a href="#">会社情報</a>
+    </nav>
+  </header>
+
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="quick-search">
+        <div class="quick-search-label">型番から探す</div>
+        <input type="text" class="quick-search-input" placeholder="CNMG120408N-GU" id="quickSearch">
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-header">被削材から探す</div>
+        <div class="filter-content">
+          <div class="material-grid">
+            <div class="material-btn active"><div class="code">P</div><div class="name">鋼</div></div>
+            <div class="material-btn"><div class="code">M</div><div class="name">ステンレス</div></div>
+            <div class="material-btn"><div class="code">K</div><div class="name">鋳鉄</div></div>
+            <div class="material-btn"><div class="code">S</div><div class="name">難削材</div></div>
+            <div class="material-btn"><div class="code">H</div><div class="name">高硬度材</div></div>
+            <div class="material-btn"><div class="code">N</div><div class="name">非鉄金属</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-header">形状から探す</div>
+        <div class="filter-content">
+          <div class="shape-list">
+            <div class="shape-item active">
+              <div class="shape-icon">◇</div>
+              <div class="shape-info"><div class="shape-name">CNMG</div><div class="shape-desc">菱形80° ネガ</div></div>
+              <div class="shape-count">245</div>
+            </div>
+            <div class="shape-item">
+              <div class="shape-icon">◇</div>
+              <div class="shape-info"><div class="shape-name">DNMG</div><div class="shape-desc">菱形55° ネガ</div></div>
+              <div class="shape-count">198</div>
+            </div>
+            <div class="shape-item">
+              <div class="shape-icon">△</div>
+              <div class="shape-info"><div class="shape-name">WNMG</div><div class="shape-desc">三角形 ネガ</div></div>
+              <div class="shape-count">156</div>
+            </div>
+            <div class="shape-item">
+              <div class="shape-icon">△</div>
+              <div class="shape-info"><div class="shape-name">TNMG</div><div class="shape-desc">正三角形 ネガ</div></div>
+              <div class="shape-count">134</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-header">材種から探す</div>
+        <div class="filter-content">
+          <div class="pill-group">
+            <div class="pill active">AC8025P</div>
+            <div class="pill">AC8015P</div>
+            <div class="pill">AC8035P</div>
+            <div class="pill">T1500A</div>
+            <div class="pill">BN7125</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="breadcrumb">
+        <a href="#">ホーム</a><span>›</span>
+        <a href="#">製品情報</a><span>›</span>
+        <a href="#">鋼 (P)</a><span>›</span>
+        <span>CNMG</span>
+      </div>
+
+      <div class="results-header">
+        <div class="results-count"><strong>245</strong> 件の製品</div>
+      </div>
+
+      <div class="product-grid">
+        <a href="detail.html?id=CNMG120408N-GU" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG120408N-GU</div>
+            <div class="product-spec">φ12.7 × t4.76 × R0.8</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8025P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="detail.html?id=CNMG120404N-GU" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG120404N-GU</div>
+            <div class="product-spec">φ12.7 × t4.76 × R0.4</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8025P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="detail.html?id=CNMG120412N-GU" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG120412N-GU</div>
+            <div class="product-spec">φ12.7 × t4.76 × R1.2</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8025P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="detail.html?id=CNMG120408N-SU" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG120408N-SU</div>
+            <div class="product-spec">φ12.7 × t4.76 × R0.8</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8025P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="detail.html?id=CNMG120408N-MU" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG120408N-MU</div>
+            <div class="product-spec">φ12.7 × t4.76 × R0.8</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8035P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="detail.html?id=CNMG160608N-GU" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG160608N-GU</div>
+            <div class="product-spec">φ16.5 × t6.35 × R0.8</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8025P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="detail.html?id=CNMG190612N-GU" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG190612N-GU</div>
+            <div class="product-spec">φ19.05 × t6.35 × R1.2</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8025P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="detail.html?id=CNMG120408N-GE" class="product-card">
+          <div class="product-thumb">
+            <span class="product-thumb-3d">◇</span>
+            <span class="product-badge">CVD</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">CNMG120408N-GE</div>
+            <div class="product-spec">φ12.7 × t4.76 × R0.8</div>
+            <div class="product-meta">
+              <span class="product-grade">AC8015P</span>
+              <span class="product-3d-icon">3D</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    © Sumitomo Electric Industries, Ltd. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Filter interactions
+    document.querySelectorAll('.material-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.shape-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.shape-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        pill.classList.toggle('active');
+      });
+    });
+
+    // Quick search
+    document.getElementById('quickSearch').addEventListener('input', (e) => {
+      const query = e.target.value.toUpperCase();
+      document.querySelectorAll('.product-card').forEach(card => {
+        const name = card.querySelector('.product-name').textContent;
+        card.style.display = name.includes(query) ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
