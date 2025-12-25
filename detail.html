@@ -1204,27 +1204,30 @@
   </footer>
 
   <script>
-    // Get product ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id') || 'CNMG120408N-GU';
-    
-    // Update page content
-    document.getElementById('productTitle').textContent = productId;
-    document.getElementById('breadcrumbTitle').textContent = productId;
-    document.title = productId + ' | 住友電工ハードメタル 3Dビューワー';
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get product ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id') || 'CNMG120408N-GU';
+      
+      // Update page content
+      document.getElementById('productTitle').textContent = productId;
+      document.getElementById('breadcrumbTitle').textContent = productId;
+      document.title = productId + ' | 住友電工ハードメタル 3Dビューワー';
 
-    // Generate QR Code
-    const currentUrl = window.location.href;
-    QRCode.toCanvas(document.createElement('canvas'), currentUrl, {
-      width: 140,
-      margin: 2,
-      color: {
-        dark: '#002855',
-        light: '#ffffff'
-      }
-    }, function(error, canvas) {
-      if (error) console.error(error);
-      document.getElementById('qrcode').appendChild(canvas);
+      // Generate QR Code
+      const currentUrl = window.location.href;
+      QRCode.toCanvas(document.createElement('canvas'), currentUrl, {
+        width: 140,
+        margin: 2,
+        color: {
+          dark: '#002855',
+          light: '#ffffff'
+        }
+      }, function(error, canvas) {
+        if (error) console.error(error);
+        document.getElementById('qrcode').appendChild(canvas);
+      });
     });
 
     // View controls
