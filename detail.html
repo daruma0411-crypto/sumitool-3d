@@ -3,1231 +3,663 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CNMG120408N-GU | 住友電工ハードメタル 3Dビューワー</title>
+  <title>CNMG120408N-GU - 3Dモデル | 住友電工ハードメタル</title>
   
-  <!-- OGP (Open Graph Protocol) - SNSシェア用 -->
-  <meta property="og:type" content="product">
-  <meta property="og:title" content="CNMG120408N-GU - 3Dモデル | 住友電工ハードメタル">
-  <meta property="og:description" content="切削工具を3DとARで確認。スマホでスキャンすると実寸大で表示できます。">
+  <!-- OGP Tags -->
+  <meta property="og:title" content="CNMG120408N-GU - 3Dモデル">
+  <meta property="og:description" content="住友電工ハードメタルの切削工具を3DとARで確認できます">
   <meta property="og:image" content="https://i.ytimg.com/vi/ZNZmA_7G7U0/maxresdefault.jpg">
   <meta property="og:url" content="https://daruma0411-crypto.github.io/sumitool-3d/detail.html">
-  <meta property="og:site_name" content="住友電工ハードメタル 3Dビューワー">
-  <meta property="og:locale" content="ja_JP">
+  <meta property="og:type" content="product">
+  <meta property="og:site_name" content="住友電工ハードメタル 3Dカタログ">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CNMG120408N-GU - 3Dモデル">
-  <meta name="twitter:description" content="切削工具を3DとARで確認。スマホで実寸表示可能。">
+  <meta name="twitter:description" content="切削工具を3DとARで確認">
   <meta name="twitter:image" content="https://i.ytimg.com/vi/ZNZmA_7G7U0/maxresdefault.jpg">
   
-  <!-- LINE用 -->
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
-  
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
+    
     body {
-      font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #f5f5f5;
       color: #333;
     }
-
-    :root {
-      --sumitomo-blue: #003E7E;
-      --sumitomo-dark: #002855;
-      --sumitomo-light: #0066CC;
-      --sumitomo-gray: #666;
-      --accent-orange: #F39800;
-      --bg-light: #f5f5f5;
-      --bg-white: #ffffff;
-      --border: #e0e0e0;
-    }
-
-    /* Header */
+    
     .header {
-      background: var(--sumitomo-dark);
-      padding: 12px 32px;
+      background: linear-gradient(135deg, #002855 0%, #003E7E 100%);
+      color: white;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
+    
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .logo-text .main {
-      font-size: 18px;
+      font-size: 1.5rem;
       font-weight: bold;
-      color: #fff;
-      letter-spacing: 1px;
     }
-
-    .logo-text .sub {
-      font-size: 11px;
-      color: rgba(255,255,255,0.7);
+    
+    .logo-sub {
+      font-size: 0.7rem;
+      opacity: 0.8;
     }
-
-    .logo-tagline {
-      color: var(--accent-orange);
-      font-size: 11px;
-      padding-left: 16px;
-      border-left: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .header-nav {
-      display: flex;
-      gap: 24px;
-    }
-
-    .header-nav a {
-      color: #fff;
+    
+    .nav a {
+      color: white;
       text-decoration: none;
-      font-size: 13px;
+      margin-left: 2rem;
+      opacity: 0.9;
     }
-
-    .header-nav a:hover {
-      color: var(--accent-orange);
+    
+    .nav a:hover {
+      opacity: 1;
     }
-
-    /* Breadcrumb */
-    .breadcrumb-bar {
-      background: #fff;
-      padding: 12px 32px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    
     .breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--sumitomo-gray);
+      padding: 1rem 2rem;
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 0.9rem;
     }
-
+    
     .breadcrumb a {
-      color: var(--sumitomo-blue);
+      color: #003E7E;
       text-decoration: none;
     }
-
-    /* Main Layout */
+    
     .main-content {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 32px;
+      padding: 2rem;
     }
-
-    .product-layout {
-      display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 32px;
+    
+    .product-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #002855;
     }
-
-    /* 3D Viewer Section */
-    .viewer-section {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    
+    .product-subtitle {
+      color: #666;
+      margin-bottom: 2rem;
     }
-
+    
     .viewer-container {
-      height: 500px;
-      background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-      position: relative;
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     }
-
+    
     model-viewer {
       width: 100%;
-      height: 100%;
+      height: 500px;
+      border-radius: 12px;
+      background: transparent;
     }
-
+    
     .viewer-controls {
-      position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
-      gap: 6px;
-      background: rgba(0,40,85,0.9);
-      padding: 8px 16px;
-      border-radius: 24px;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
     }
-
-    .viewer-controls button {
-      background: none;
+    
+    .view-btn {
+      padding: 0.75rem 1.5rem;
       border: none;
-      color: #fff;
-      cursor: pointer;
-      padding: 8px 14px;
-      border-radius: 4px;
-      font-size: 12px;
-      transition: background 0.2s;
-    }
-
-    .viewer-controls button:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    .viewer-controls button.active {
-      background: var(--accent-orange);
-    }
-
-    .viewer-actions {
-      padding: 16px 20px;
-      display: flex;
-      gap: 12px;
-      border-top: 1px solid var(--border);
-    }
-
-    .viewer-actions button {
-      flex: 1;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-
-    .btn-ar {
-      background: var(--accent-orange);
-      color: #fff;
-      border: none;
-    }
-
-    .btn-ar:hover {
-      background: #e08a00;
-    }
-
-    .btn-fullscreen {
-      background: #fff;
-      color: var(--sumitomo-dark);
-      border: 1px solid var(--border);
-    }
-
-    .btn-fullscreen:hover {
-      background: #f5f5f5;
-    }
-
-    /* ★ Share Section - 3Dビューワー直下 */
-    .share-ar-section {
-      padding: 24px 20px;
-      border-top: 1px solid var(--border);
-      background: #fafafa;
-    }
-
-    .share-ar-title {
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--sumitomo-dark);
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    .share-ar-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-
-    .qr-box {
-      text-align: center;
-    }
-
-    #qrcode {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 8px;
-    }
-
-    #qrcode canvas {
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .qr-label {
-      font-size: 12px;
-      color: var(--sumitomo-dark);
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-
-    .qr-sublabel {
-      font-size: 10px;
-      color: #999;
-    }
-
-    .share-buttons-box {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .sns-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .sns-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: none;
       cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      background: rgba(255,255,255,0.1);
+      color: white;
     }
-
-    .sns-btn.x-twitter {
-      background: #000;
-      color: #fff;
+    
+    .view-btn:hover, .view-btn.active {
+      background: #F39800;
+      color: white;
     }
-
-    .sns-btn.line {
-      background: #06C755;
-      color: #fff;
-    }
-
-    .sns-btn.email {
-      background: var(--sumitomo-blue);
-      color: #fff;
-    }
-
-    .sns-btn.copy {
-      background: #666;
-      color: #fff;
-    }
-
-    .sns-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .sns-label {
-      font-size: 10px;
-      color: #666;
-      text-align: center;
-    }
-
-    /* Embed Section */
-    .embed-section {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-    }
-
-    .embed-label {
-      font-size: 11px;
-      color: var(--sumitomo-gray);
-      margin-bottom: 8px;
-    }
-
-    .embed-code {
-      background: #1a1a1a;
-      color: var(--accent-orange);
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-family: monospace;
-      word-break: break-all;
-      margin-bottom: 8px;
-    }
-
-    .embed-copy {
-      width: 100%;
-      padding: 10px;
-      background: var(--sumitomo-dark);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 12px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .embed-copy:hover {
-      background: #001a3d;
-    }
-
-    /* Product Info Section */
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .product-header {
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .product-badge {
-      display: inline-block;
-      background: var(--accent-orange);
-      color: #fff;
-      font-size: 11px;
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .product-title {
-      font-size: 28px;
-      font-weight: bold;
-      color: var(--sumitomo-dark);
-      margin-bottom: 8px;
-    }
-
-    .product-subtitle {
-      font-size: 14px;
-      color: var(--sumitomo-gray);
-    }
-
-    /* Specs Card */
-    .specs-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .specs-title {
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--sumitomo-dark);
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--sumitomo-blue);
-    }
-
-    .specs-grid {
+    
+    .action-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
-
-    .spec-item {
-      background: #f8f8f8;
-      padding: 12px;
-      border-radius: 6px;
-    }
-
-    .spec-label {
-      font-size: 11px;
-      color: #999;
-      margin-bottom: 4px;
-    }
-
-    .spec-value {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--sumitomo-dark);
-    }
-
-    /* Actions Card */
-    .actions-card {
-      background: #fff;
+    
+    .ar-btn {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #F39800 0%, #E08600 100%);
+      color: white;
+      border: none;
       border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .btn {
-      padding: 14px 20px;
-      border-radius: 6px;
-      font-size: 14px;
+      font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
-      text-align: center;
-      text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      transition: all 0.2s;
+      gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-
-    .btn-primary {
-      background: var(--sumitomo-blue);
-      color: #fff;
-      border: none;
+    
+    .ar-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(243, 152, 0, 0.4);
     }
-
-    .btn-primary:hover {
-      background: var(--sumitomo-dark);
-    }
-
-    .btn-secondary {
-      background: #fff;
-      color: var(--sumitomo-dark);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background: #f5f5f5;
-    }
-
-    /* Related Products & Videos */
-    .related-section {
-      margin-top: 40px;
-    }
-
-    .related-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .related-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: var(--sumitomo-dark);
-    }
-
-    .related-links {
-      display: flex;
-      gap: 12px;
-    }
-
-    .yt-btn {
-      background: #c00;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .ig-btn {
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .video-card {
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    
+    .fullscreen-btn {
+      padding: 1rem 2rem;
+      background: white;
+      color: #333;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 500;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
       transition: all 0.2s;
     }
-
-    .video-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    
+    .fullscreen-btn:hover {
+      border-color: #003E7E;
+      color: #003E7E;
     }
-
-    .video-thumb {
-      position: relative;
-      aspect-ratio: 16/9;
-      background: #000;
+    
+    /* Share Section */
+    .share-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
-
-    .video-thumb img {
+    
+    .share-section h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #002855;
+    }
+    
+    .share-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    
+    .qr-container {
+      text-align: center;
+    }
+    
+    .qr-code {
+      width: 150px;
+      height: 150px;
+      border: 3px solid #003E7E;
+      border-radius: 12px;
+      padding: 8px;
+      background: white;
+    }
+    
+    .qr-code img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
-
-    .video-thumb .play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    
+    .qr-label {
+      margin-top: 0.5rem;
+      font-weight: 600;
+      color: #003E7E;
+    }
+    
+    .qr-sublabel {
+      font-size: 0.8rem;
+      color: #666;
+    }
+    
+    .sns-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .sns-btn {
       width: 50px;
       height: 50px;
-      background: rgba(0,0,0,0.7);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 20px;
-      transition: background 0.2s;
-    }
-
-    .video-card:hover .play-btn {
-      background: #c00;
-    }
-
-    .video-duration {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.8);
-      color: #fff;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 11px;
-    }
-
-    .video-info {
-      padding: 12px;
-    }
-
-    .video-title {
-      font-size: 13px;
-      font-weight: bold;
-      color: var(--sumitomo-dark);
-      margin-bottom: 4px;
-      line-height: 1.3;
-    }
-
-    .video-meta {
-      font-size: 11px;
-      color: #999;
-    }
-
-    .video-thumb iframe {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .related-card {
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
+      color: white;
       text-decoration: none;
-      color: inherit;
-      transition: all 0.2s;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      font-size: 1.2rem;
+      transition: transform 0.2s;
     }
-
-    .related-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    
+    .sns-btn:hover {
+      transform: scale(1.1);
     }
-
-    .related-thumb {
-      height: 120px;
-      background: #f0f0f0;
+    
+    .sns-btn.twitter { background: #000; }
+    .sns-btn.line { background: #06C755; }
+    .sns-btn.email { background: #003E7E; }
+    .sns-btn.copy { background: #666; cursor: pointer; }
+    
+    .sns-label {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+    
+    /* Embed Code Section */
+    .embed-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .embed-section h4 {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.75rem;
+    }
+    
+    .embed-code {
+      background: #002855;
+      color: #F39800;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    
+    .copy-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #003E7E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      gap: 0.5rem;
     }
-
-    .related-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    
+    .copy-btn:hover {
+      background: #002855;
     }
-
-    .related-info {
-      padding: 12px;
+    
+    /* Related Products */
+    .related-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
     }
-
-    .related-name {
-      font-size: 13px;
-      font-weight: bold;
-      color: var(--sumitomo-dark);
-      margin-bottom: 4px;
+    
+    .related-section h3 {
+      margin-bottom: 1.5rem;
+      color: #002855;
     }
-
-    .related-spec {
-      font-size: 11px;
-      color: var(--sumitomo-gray);
-    }
-
-    /* Video Section */
-    .video-section {
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .video-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .video-header .related-title {
-      margin-bottom: 0;
-    }
-
-    .video-links {
-      display: flex;
-      gap: 12px;
-    }
-
-    .channel-link {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background: #ff0000;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      transition: all 0.2s;
-    }
-
-    .channel-link:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(255,0,0,0.3);
-    }
-
-    .channel-link.instagram {
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    }
-
-    .channel-link.instagram:hover {
-      box-shadow: 0 4px 12px rgba(225,48,108,0.4);
-    }
-
-    .yt-icon {
-      font-size: 14px;
-    }
-
-    .video-grid {
+    
+    .related-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
     }
-
-    .video-card {
+    
+    .related-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1rem;
       text-decoration: none;
       color: inherit;
       transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-
+    
+    .related-card:hover {
+      background: #e8f4fc;
+      transform: translateY(-2px);
+    }
+    
+    .related-thumb {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      object-fit: cover;
+      background: #ddd;
+    }
+    
+    .related-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 0.25rem;
+    }
+    
+    .related-spec {
+      font-size: 0.8rem;
+      color: #666;
+      text-align: center;
+    }
+    
+    /* Video Section */
+    .video-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .video-section h3 {
+      margin-bottom: 1.5rem;
+      color: #002855;
+    }
+    
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .video-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s;
+    }
+    
     .video-card:hover {
       transform: translateY(-4px);
     }
-
+    
     .video-thumb {
-      position: relative;
+      width: 100%;
       aspect-ratio: 16/9;
-      background: #1a1a1a;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
+      background: #ddd;
     }
-
-    .thumb-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-      color: #666;
-      font-size: 32px;
-    }
-
-    .video-duration {
-      position: absolute;
-      bottom: 6px;
-      right: 6px;
-      background: rgba(0,0,0,0.8);
-      color: #fff;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .play-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 48px;
-      height: 48px;
-      background: rgba(255,0,0,0.9);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 18px;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .video-card:hover .play-overlay {
-      opacity: 1;
-    }
-
+    
     .video-info {
-      padding: 0 4px;
+      padding: 1rem;
     }
-
+    
     .video-title {
-      font-size: 13px;
       font-weight: 600;
-      color: var(--sumitomo-dark);
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      margin-bottom: 4px;
+      margin-bottom: 0.25rem;
     }
-
-    .video-meta {
-      font-size: 11px;
-      color: #999;
-    }
-
-    /* Shorts Section */
-    .shorts-section {
-      border-top: 1px solid var(--border);
-      padding-top: 20px;
-    }
-
-    .shorts-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--sumitomo-dark);
-      margin-bottom: 16px;
-    }
-
-    .shorts-icon {
-      color: #ff0000;
-    }
-
-    .shorts-link {
-      margin-left: auto;
-      font-size: 12px;
-      color: var(--sumitomo-blue);
-      text-decoration: none;
-    }
-
-    .shorts-link:hover {
-      text-decoration: underline;
-    }
-
-    .shorts-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-    }
-
-    .short-card {
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s;
-    }
-
-    .short-card:hover {
-      transform: scale(1.05);
-    }
-
-    .short-thumb {
-      aspect-ratio: 9/16;
-      background: linear-gradient(135deg, #333, #1a1a1a);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    
+    .video-duration {
+      font-size: 0.85rem;
       color: #666;
-      font-size: 24px;
-      margin-bottom: 6px;
     }
-
-    .short-title {
-      font-size: 11px;
-      color: var(--sumitomo-dark);
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    
+    .channel-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
     }
-
-    /* Footer */
+    
+    .channel-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .channel-btn.youtube {
+      background: #FF0000;
+      color: white;
+    }
+    
+    .channel-btn.instagram {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+    }
+    
     .footer {
-      background: var(--sumitomo-dark);
-      color: #fff;
-      padding: 20px 32px;
+      background: #002855;
+      color: white;
+      padding: 2rem;
       text-align: center;
-      font-size: 11px;
-      margin-top: 60px;
     }
-
-    /* Responsive */
-    @media (max-width: 1000px) {
-      .product-layout {
-        grid-template-columns: 1fr;
-      }
-      .related-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .share-ar-content {
-        flex-direction: column;
-        gap: 20px;
-      }
-      .video-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .shorts-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-      .video-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
+    
+    .footer a {
+      color: #F39800;
+      text-decoration: none;
     }
-
-    @media (max-width: 600px) {
-      .main-content {
-        padding: 16px;
-      }
-      .viewer-container {
-        height: 350px;
-      }
-      .related-grid {
-        grid-template-columns: 1fr;
-      }
+    
+    @media (max-width: 768px) {
       .header {
-        padding: 12px 16px;
+        flex-direction: column;
+        gap: 1rem;
       }
-      .logo-tagline {
-        display: none;
-      }
-      .video-grid {
+      
+      .action-buttons {
         grid-template-columns: 1fr;
       }
-      .shorts-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .video-links {
+      
+      .share-content {
         flex-direction: column;
-        width: 100%;
       }
-      .channel-link {
-        justify-content: center;
+      
+      model-viewer {
+        height: 350px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
     <div class="logo">
-      <div class="logo-text">
-        <div class="main">SUMITOMO ELECTRIC</div>
-        <div class="sub">Hardmetal Corp.</div>
-      </div>
-      <div class="logo-tagline">CARBIDE・CBN・DIAMOND</div>
+      SUMITOMO
+      <div class="logo-sub">ELECTRIC HARDMETAL</div>
     </div>
-    <nav class="header-nav">
+    <nav class="nav">
       <a href="index.html">製品一覧</a>
-      <a href="#">カタログ・CAD</a>
+      <a href="#">カタログ</a>
       <a href="#">お問い合わせ</a>
     </nav>
   </header>
-
-  <!-- Breadcrumb -->
-  <div class="breadcrumb-bar">
-    <div class="breadcrumb">
-      <a href="index.html">ホーム</a><span>›</span>
-      <a href="index.html">製品一覧</a><span>›</span>
-      <a href="index.html">鋼 (P)</a><span>›</span>
-      <a href="index.html">CNMG</a><span>›</span>
-      <span id="breadcrumbTitle">CNMG120408N-GU</span>
-    </div>
+  
+  <div class="breadcrumb">
+    <a href="index.html">ホーム</a> &gt; 
+    <a href="index.html">インサート</a> &gt; 
+    <span>CNMG120408N-GU</span>
   </div>
-
-  <!-- Main Content -->
+  
   <main class="main-content">
-    <div class="product-layout">
-      <!-- 3D Viewer -->
-      <div class="viewer-section">
-        <div class="viewer-container">
-          <model-viewer
-            id="viewer"
-            src="test.glb"
-            alt="CNMG120408N-GU 3Dモデル"
-            camera-controls
-            auto-rotate
-            shadow-intensity="1"
-            environment-image="neutral"
-            exposure="1.2"
-            shadow-softness="0.5"
-            camera-orbit="45deg 55deg 105%"
-            ar
-            ar-modes="webxr scene-viewer quick-look"
-          >
-            <div class="viewer-controls">
-              <button onclick="setView('top')">上面</button>
-              <button onclick="setView('side')">側面</button>
-              <button onclick="setView('angle')" class="active">斜め</button>
-              <button onclick="toggleRotate()">↻ 回転</button>
-            </div>
-          </model-viewer>
-        </div>
-        <div class="viewer-actions">
-          <button class="btn-ar" onclick="activateAR()">📱 ARで実寸表示</button>
-          <button class="btn-fullscreen" onclick="toggleFullscreen()">⛶ フルスクリーン</button>
-        </div>
-
-        <!-- ★ 共有・AR表示セクション（3Dビューワー直下） -->
-        <div class="share-ar-section">
-          <div class="share-ar-title">共有・AR表示</div>
-          <div class="share-ar-content">
-            <div class="qr-box">
-              <div id="qrcode"></div>
-              <div class="qr-label">スマホでスキャン → AR表示</div>
-              <div class="qr-sublabel">アプリ不要・ブラウザで直接3D表示</div>
-            </div>
-            <div class="share-buttons-box">
-              <div class="sns-buttons">
-                <a class="sns-btn x-twitter" onclick="shareTwitter()" title="X(Twitter)でシェア">𝕏</a>
-                <a class="sns-btn line" onclick="shareLine()" title="LINEで送る">💬</a>
-                <a class="sns-btn email" onclick="shareEmail()" title="メールで送る">✉️</a>
-                <a class="sns-btn copy" onclick="copyLink()" title="リンクをコピー">🔗</a>
-              </div>
-              <div class="sns-label">SNS・メールでリンクを共有</div>
-            </div>
-          </div>
-
-          <div class="embed-section">
-            <div class="embed-label">埋め込みコード（代理店様向け）</div>
-            <div class="embed-code" id="embedCode">&lt;iframe src="https://sumitool.com/3d/CNMG120408N-GU" width="600" height="400" frameborder="0"&gt;&lt;/iframe&gt;</div>
-            <button class="embed-copy" onclick="copyEmbed()">📋 コピー</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Product Info -->
-      <div class="product-info">
-        <div class="product-header">
-          <span class="product-badge">CVDコーティング</span>
-          <h1 class="product-title" id="productTitle">CNMG120408N-GU</h1>
-          <p class="product-subtitle">鋼旋削用インサート / AC8025P</p>
-        </div>
-
-        <div class="specs-card">
-          <div class="specs-title">製品仕様</div>
-          <div class="specs-grid">
-            <div class="spec-item">
-              <div class="spec-label">形状</div>
-              <div class="spec-value">菱形80° ネガ</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">内接円径</div>
-              <div class="spec-value">12.7mm</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">厚み</div>
-              <div class="spec-value">4.76mm</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">コーナーR</div>
-              <div class="spec-value">0.8mm</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">材種</div>
-              <div class="spec-value">AC8025P</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">ブレーカ</div>
-              <div class="spec-value">GU</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="actions-card">
-          <a href="#" class="btn btn-primary">📥 CADデータをダウンロード</a>
-          <a href="#" class="btn btn-secondary">📄 製品カタログを見る</a>
-          <a href="#" class="btn btn-secondary">💬 お問い合わせ</a>
-        </div>
+    <h1 class="product-title">CNMG120408N-GU</h1>
+    <p class="product-subtitle">旋削用CVDコーティング材種 | AC8025P</p>
+    
+    <div class="viewer-container">
+      <model-viewer
+        id="viewer"
+        src="test.glb"
+        ios-src="test.usdz"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        touch-action="pan-y"
+        auto-rotate
+        shadow-intensity="1"
+        exposure="1"
+        environment-image="neutral"
+        alt="CNMG120408N-GU 3Dモデル"
+      ></model-viewer>
+      
+      <div class="viewer-controls">
+        <button class="view-btn" onclick="setView('top')">上面</button>
+        <button class="view-btn" onclick="setView('side')">側面</button>
+        <button class="view-btn active" onclick="setView('angle')">斜め</button>
+        <button class="view-btn" onclick="resetView()">↻ 回転</button>
       </div>
     </div>
-
+    
+    <div class="action-buttons">
+      <button class="ar-btn" onclick="activateAR()">
+        📱 ARで実寸表示
+      </button>
+      <button class="fullscreen-btn" onclick="toggleFullscreen()">
+        ⛶ フルスクリーン
+      </button>
+    </div>
+    
+    <!-- Share Section -->
+    <section class="share-section">
+      <h3>共有・AR表示</h3>
+      
+      <div class="share-content">
+        <div class="qr-container">
+          <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://daruma0411-crypto.github.io/sumitool-3d/detail.html" alt="QR Code">
+          </div>
+          <div class="qr-label">スマホでスキャン → AR表示</div>
+          <div class="qr-sublabel">アプリ不要・ブラウザで直接3D表示</div>
+        </div>
+        
+        <div>
+          <div class="sns-buttons">
+            <a href="https://twitter.com/intent/tweet?url=https://daruma0411-crypto.github.io/sumitool-3d/detail.html&text=CNMG120408N-GU%20-%203D%E3%83%A2%E3%83%87%E3%83%AB" target="_blank" class="sns-btn twitter" title="Xで共有">
+              𝕏
+            </a>
+            <a href="https://social-plugins.line.me/lineit/share?url=https://daruma0411-crypto.github.io/sumitool-3d/detail.html" target="_blank" class="sns-btn line" title="LINEで共有">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.83 1.63 5.35 4.13 6.98L5 22l4.5-2.5c.81.17 1.64.25 2.5.25 5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+            </a>
+            <a href="mailto:?subject=CNMG120408N-GU%203D%E3%83%A2%E3%83%87%E3%83%AB&body=https://daruma0411-crypto.github.io/sumitool-3d/detail.html" class="sns-btn email" title="メールで共有">
+              ✉
+            </a>
+            <div class="sns-btn copy" onclick="copyLink()" title="リンクをコピー">
+              🔗
+            </div>
+          </div>
+          <div class="sns-label">SNS・メールでリンクを共有</div>
+        </div>
+      </div>
+      
+      <div class="embed-section">
+        <h4>埋め込みコード（代理店様向け）</h4>
+        <div class="embed-code" id="embedCode">&lt;iframe src="https://sumitool.com/3d/CNMG120408N-GU" width="600" height="400" frameborder="0"&gt;&lt;/iframe&gt;</div>
+        <button class="copy-btn" onclick="copyEmbed()">
+          📋 コピー
+        </button>
+      </div>
+    </section>
+    
     <!-- Related Products -->
     <section class="related-section">
-      <h2 class="related-title">関連製品</h2>
+      <h3>関連製品</h3>
       <div class="related-grid">
-        <a href="detail.html?id=CNMG120404N-GU" class="related-card">
-          <div class="related-thumb">
-            <img src="product1.png" alt="CNMG120404N-GU">
-          </div>
-          <div class="related-info">
-            <div class="related-name">CNMG120404N-GU</div>
-            <div class="related-spec">コーナーR 0.4mm</div>
-          </div>
-        </a>
         <a href="detail.html?id=CNMG120412N-GU" class="related-card">
-          <div class="related-thumb">
-            <img src="product2.png" alt="CNMG120412N-GU">
-          </div>
-          <div class="related-info">
-            <div class="related-name">CNMG120412N-GU</div>
-            <div class="related-spec">コーナーR 1.2mm</div>
-          </div>
+          <img src="product1.png" alt="CNMG120412N-GU" class="related-thumb">
+          <div class="related-name">CNMG120412N-GU</div>
+          <div class="related-spec">コーナR 1.2mm</div>
         </a>
-        <a href="detail.html?id=CNMG120408N-SU" class="related-card">
-          <div class="related-thumb">
-            <img src="product3.png" alt="CNMG120408N-SU">
-          </div>
-          <div class="related-info">
-            <div class="related-name">CNMG120408N-SU</div>
-            <div class="related-spec">ブレーカ SU</div>
-          </div>
+        <a href="detail.html?id=CNMG120404N-GU" class="related-card">
+          <img src="product2.png" alt="CNMG120404N-GU" class="related-thumb">
+          <div class="related-name">CNMG120404N-GU</div>
+          <div class="related-spec">コーナR 0.4mm</div>
         </a>
         <a href="detail.html?id=DNMG150408N-GU" class="related-card">
-          <div class="related-thumb">
-            <img src="product4.png" alt="DNMG150408N-GU">
-          </div>
-          <div class="related-info">
-            <div class="related-name">DNMG150408N-GU</div>
-            <div class="related-spec">菱形55°タイプ</div>
-          </div>
+          <img src="product3.png" alt="DNMG150408N-GU" class="related-thumb">
+          <div class="related-name">DNMG150408N-GU</div>
+          <div class="related-spec">55°菱形</div>
+        </a>
+        <a href="detail.html?id=WNMG080408N-GU" class="related-card">
+          <img src="product4.png" alt="WNMG080408N-GU" class="related-thumb">
+          <div class="related-name">WNMG080408N-GU</div>
+          <div class="related-spec">80°三角形</div>
         </a>
       </div>
     </section>
-
+    
     <!-- Related Videos -->
-    <section class="related-section">
-      <div class="related-header">
-        <h2 class="related-title">関連動画</h2>
-        <div class="related-links">
-          <a href="https://www.youtube.com/@SumitomoElectricHardmetal" target="_blank" class="yt-btn">▶ YouTubeチャンネル</a>
-          <a href="https://www.instagram.com/sumitomo_electric_hardmetal/" target="_blank" class="ig-btn">📷 Instagram</a>
-        </div>
-      </div>
+    <section class="video-section">
+      <h3>関連動画</h3>
       <div class="video-grid">
-        <div class="video-card">
-          <div class="video-thumb" onclick="playVideo('V77ogmqH5bs', this)">
-            <img src="https://i.ytimg.com/vi/V77ogmqH5bs/hqdefault.jpg" alt="AC1135U Insert">
-            <div class="play-btn">▶</div>
-            <span class="video-duration">1:30</span>
-          </div>
+        <a href="https://www.youtube.com/watch?v=V77ogmqH5bs" target="_blank" class="video-card">
+          <img src="https://i.ytimg.com/vi/V77ogmqH5bs/hqdefault.jpg" alt="AC1135U" class="video-thumb">
           <div class="video-info">
-            <div class="video-title">AC1135U - 高性能インサート</div>
-            <div class="video-meta">住友電工ハードメタル</div>
+            <div class="video-title">AC1135U - 新材種紹介</div>
+            <div class="video-duration">2:30</div>
           </div>
-        </div>
-        <div class="video-card">
-          <div class="video-thumb" onclick="playVideo('ZNZmA_7G7U0', this)">
-            <img src="https://i.ytimg.com/vi/ZNZmA_7G7U0/hqdefault.jpg" alt="Made in Japan">
-            <div class="play-btn">▶</div>
-            <span class="video-duration">2:18</span>
-          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=ZNZmA_7G7U0" target="_blank" class="video-card">
+          <img src="https://i.ytimg.com/vi/ZNZmA_7G7U0/hqdefault.jpg" alt="Made in Japan" class="video-thumb">
           <div class="video-info">
-            <div class="video-title">Made in Japan — Sumitomo Electric</div>
-            <div class="video-meta">住友電工ハードメタル</div>
+            <div class="video-title">Made in Japan</div>
+            <div class="video-duration">2:18</div>
           </div>
-        </div>
-        <div class="video-card">
-          <div class="video-thumb" onclick="playVideo('gj1VFiJK1Dk', this)">
-            <img src="https://i.ytimg.com/vi/gj1VFiJK1Dk/hqdefault.jpg" alt="Anywhere in the World">
-            <div class="play-btn">▶</div>
-            <span class="video-duration">1:46</span>
-          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=gj1VFiJK1Dk" target="_blank" class="video-card">
+          <img src="https://i.ytimg.com/vi/gj1VFiJK1Dk/hqdefault.jpg" alt="Anywhere in the World" class="video-thumb">
           <div class="video-info">
             <div class="video-title">Anywhere in the World</div>
-            <div class="video-meta">住友電工ハードメタル</div>
+            <div class="video-duration">1:46</div>
           </div>
-        </div>
-        <div class="video-card">
-          <div class="video-thumb" onclick="playVideo('ci5BGadx-Wg', this)">
-            <img src="https://i.ytimg.com/vi/ci5BGadx-Wg/hqdefault.jpg" alt="AVIXシリーズ">
-            <div class="play-btn">▶</div>
-            <span class="video-duration">2:51</span>
-          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=ci5BGadx-Wg" target="_blank" class="video-card">
+          <img src="https://i.ytimg.com/vi/ci5BGadx-Wg/hqdefault.jpg" alt="AVIXシリーズ" class="video-thumb">
           <div class="video-info">
-            <div class="video-title">AVIXシリーズ - CFRP加工用</div>
-            <div class="video-meta">住友電工ハードメタル</div>
+            <div class="video-title">AVIXシリーズ</div>
+            <div class="video-duration">2:51</div>
           </div>
-        </div>
+        </a>
+      </div>
+      
+      <div class="channel-buttons">
+        <a href="https://www.youtube.com/@suaborntool" target="_blank" class="channel-btn youtube">
+          ▶ YouTubeチャンネル
+        </a>
+        <a href="https://www.instagram.com/sumitomo_hardmetal/" target="_blank" class="channel-btn instagram">
+          📷 Instagram
+        </a>
       </div>
     </section>
   </main>
-
+  
   <footer class="footer">
-    © Sumitomo Electric Industries, Ltd. All Rights Reserved.
+    <p>© 2024 住友電工ハードメタル株式会社</p>
+    <p><a href="https://www.sumitool.com/">www.sumitool.com</a></p>
   </footer>
-
+  
   <script>
-    // Wait for DOM to be ready
-    document.addEventListener('DOMContentLoaded', function() {
-      // Get product ID from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get('id') || 'CNMG120408N-GU';
-      
-      // Update page content
-      document.getElementById('productTitle').textContent = productId;
-      document.getElementById('breadcrumbTitle').textContent = productId;
-      document.title = productId + ' | 住友電工ハードメタル 3Dビューワー';
-
-      // Generate QR Code using Google Chart API
-      const currentUrl = window.location.href;
-      const qrImg = document.createElement('img');
-      qrImg.src = 'https://chart.googleapis.com/chart?cht=qr&chs=140x140&chl=' + encodeURIComponent(currentUrl);
-      qrImg.alt = 'QR Code';
-      qrImg.style.borderRadius = '8px';
-      document.getElementById('qrcode').appendChild(qrImg);
-    });
-
-    // View controls
+    const viewer = document.getElementById('viewer');
+    
     function setView(view) {
-      const viewer = document.getElementById('viewer');
-      document.querySelectorAll('.viewer-controls button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
       
       switch(view) {
@@ -1235,74 +667,41 @@
           viewer.cameraOrbit = '0deg 0deg 105%';
           break;
         case 'side':
-          viewer.cameraOrbit = '0deg 90deg 105%';
+          viewer.cameraOrbit = '90deg 90deg 105%';
           break;
         case 'angle':
           viewer.cameraOrbit = '45deg 55deg 105%';
           break;
       }
     }
-
-    // Toggle auto-rotate
-    let isRotating = true;
-    function toggleRotate() {
-      const viewer = document.getElementById('viewer');
-      isRotating = !isRotating;
-      viewer.autoRotate = isRotating;
+    
+    function resetView() {
+      viewer.cameraOrbit = '0deg 75deg 105%';
+      viewer.setAttribute('auto-rotate', '');
     }
-
-    // AR activation
+    
     function activateAR() {
-      const viewer = document.getElementById('viewer');
       if (viewer.canActivateAR) {
         viewer.activateAR();
       } else {
-        alert('AR表示にはスマートフォンでアクセスしてください。\nQRコードをスキャンするとスマホで開けます。');
+        alert('このデバイスではARに対応していません。\\nスマートフォンでQRコードをスキャンしてお試しください。');
       }
     }
-
-    // Fullscreen
+    
     function toggleFullscreen() {
-      const viewer = document.getElementById('viewer');
-      if (viewer.requestFullscreen) {
+      if (!document.fullscreenElement) {
         viewer.requestFullscreen();
-      } else if (viewer.webkitRequestFullscreen) {
-        viewer.webkitRequestFullscreen();
+      } else {
+        document.exitFullscreen();
       }
     }
-
-    // SNS Share Functions
-    function shareTwitter() {
-      const text = encodeURIComponent(productId + ' の3Dモデルを見る');
-      const url = encodeURIComponent(window.location.href);
-      window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
-    }
-
-    function shareLine() {
-      const url = encodeURIComponent(window.location.href);
-      window.open('https://social-plugins.line.me/lineit/share?url=' + url, '_blank');
-    }
-
-    function shareEmail() {
-      const subject = encodeURIComponent(productId + ' - 3Dモデル');
-      const body = encodeURIComponent('製品の3Dモデルをご確認ください:\n' + window.location.href);
-      window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
-    }
-
-    // Copy link
+    
     function copyLink() {
       navigator.clipboard.writeText(window.location.href).then(() => {
         alert('リンクをコピーしました');
       });
     }
-
-    // Play YouTube video
-    function playVideo(videoId, element) {
-      const thumb = element;
-      thumb.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-    }
-
-    // Copy embed code
+    
     function copyEmbed() {
       const code = document.getElementById('embedCode').textContent;
       navigator.clipboard.writeText(code).then(() => {
